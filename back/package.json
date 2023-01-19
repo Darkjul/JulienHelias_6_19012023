@@ -1,0 +1,15 @@
+{
+  "name": "back-piiquante",
+  "version": "1.0.0",
+  "description": "Backend pour Piiquante",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Julien Helias",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.4"
+  }
+}
