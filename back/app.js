@@ -33,6 +33,15 @@ mongoose.connect(process.env.DB_CONNECT,
     .then(() => console.log('La connexion à la base de données MongoDB à réussie !'))
     .catch(() => console.log('La connexion à la base de données MongoDB à échouée !'));
 
+// Middleware qui filtre les échanges entre le front et le back et ajoute des headers aux requêtes    
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
+
 // Gestion des ressources images par Express de manière statique
 
 app.use("/images", express.static(path.join(__dirname, "images")));
