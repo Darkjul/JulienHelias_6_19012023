@@ -16,9 +16,10 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
-// Création des constantes d'appel du fichier user
+// Création des constantes d'appel des fichiers user et sauces
 
 const userRoutes = require("./routes/user");
+const saucesRoutes = require("./routes/sauces");
 
 // Connexion à la BDD via Mongoose
 
@@ -46,9 +47,10 @@ app.use((req, res, next) => {
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-// Routes attendues par le front-end pour user
+// Routes attendues par le front-end pour user et sauces
 
 app.use("/api/auth", userRoutes);
+app.use("/api/sauces", saucesRoutes);
 
 // Exportation de app pour y acceder depuis d'autres fichiers du backend
 

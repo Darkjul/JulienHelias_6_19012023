@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
 
         // On vérifie que le token de l'utilisateur correspondant à sa clé d'accès
 
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+        const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET_RANDOM);
 
         // On récupère le userId du Token décodé
 
