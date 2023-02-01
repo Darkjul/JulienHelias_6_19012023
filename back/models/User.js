@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-// Fonction Schéma avec les champs email et password contenant l'objet et son type si il est requis ou requis et unique
+// Modèle Schéma avec les champs email et password contenant l'objet et son type si il est requis ou requis et unique
 
 const userSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true },
@@ -12,6 +12,6 @@ const userSchema = mongoose.Schema({
 
 userSchema.plugin(uniqueValidator);
 
-// Exportation du model
+// Exportation du modèle
 
 module.exports = mongoose.model('User', userSchema);
