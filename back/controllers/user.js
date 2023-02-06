@@ -1,4 +1,4 @@
-// On appelle le fichier User dans le repertoire models
+// On importe le modèle User
 
 const User = require('../models/User');
 
