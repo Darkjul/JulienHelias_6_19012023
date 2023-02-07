@@ -15,7 +15,11 @@ dotenv.config();
 
 // On protège le back-end de certaines vulnerabilités en protégeant les en-têtes HTTP via HELMET
 
-app.use(helmet());
+app.use(
+    helmet({
+        crossOriginEmbedderPolicy: false,
+    })
+);
 
 // Utilisation par app des modules Cors et Express
 
