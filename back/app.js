@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const cors = require('cors');
 const helmet = require("helmet");
-//const mongoSanitize = require("express-mongo-sanitize");
+const mongoSanitize = require("express-mongo-sanitize");
 
 // Chargement des variables d'environnement 
 
@@ -49,9 +49,9 @@ app.use((req, res, next) => {
     next();
 });
 
-/*// On purge les données user pour éviter des injections malveillantes dans la BDD via Mongo Sanitize
+// On purge les données user pour éviter des injections malveillantes dans la BDD via Mongo Sanitize
 
-app.use(mongoSanitize());*/
+app.use(mongoSanitize());
 
 // Gestion des ressources images par Express de manière statique
 

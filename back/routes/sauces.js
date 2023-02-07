@@ -26,9 +26,9 @@ router.get("/", auth, sauceCtrl.getAllSauces);
 
 router.get("/:id", auth, sauceCtrl.getOneSauce);
 
-/*// Modifie une sauce en methode PUT, seul le créateur de la sauce est autorisé à le faire
+// Modifie une sauce en methode PUT, seul le créateur de la sauce est autorisé à le faire
 
-router.put("/:id", auth, multer, sauceCtrl.modifySauce);*/
+router.put("/:id", auth, multer, sauceCtrl.modifySauce);
 
 // Suppression d'une sauce en methode DELETE, seul le créateur de la sauce est autorisé à le faire
 
