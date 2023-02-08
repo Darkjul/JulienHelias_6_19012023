@@ -112,3 +112,50 @@ exports.modifySauce = (req, res, next) => {
     });
 };
 
+// Gestion des avis Like et Dislike des sauces
+
+exports.likeSauce = (req, res, next) => {
+
+    // On ajoute un Like ou un Dislike
+
+    Sauce.findOne({ _id: req.params.id }).then((sauce) => {
+
+        // Si l'utilisateur like une sauce
+
+        if (req.body.like == 1 && !sauce.usersLiked.includes(req.body.userId)) {
+            Sauce.updateOne(
+                { _id: req.params.id },
+                {
+                    // On incrémente de 1 les Likes et on push l'userID dans la liste usersLiked
+
+                    $inc: { likes: 1 },
+                    $push: { usersLiked: req.body.userId },
+                }
+            )
+                .then(() =>
+                    res.status(200).json({ message: "Vous avez liké la sauce !" })
+                )
+                .catch((error) => res.status(400).json({ error }));
+        }
+
+        // Si l'utilisateur dislike une sauce
+
+        else if (req.body.like == -1 && !sauce.usersDisliked.includes(req.body.userId)) {
+            Sauce.updateOne(
+                { _id: req.params.id },
+                {
+                    // On incrémente de 1 les Likes et on push l'userID dans la liste usersDisliked
+
+                    $inc: { dislikes: 1 },
+                    $push: { usersDisliked: req.body.userId },
+                }
+            )
+                .then(() =>
+                    res.status(200).json({ message: "Vous avez disliké la sauce !" })
+                )
+                .catch((error) => res.status(400).json({ error }));
+        }
+
+
+    });
+};
