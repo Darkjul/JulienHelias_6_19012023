@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const app = express();
 const cors = require('cors');
-const helmet = require("helmet");
+//const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 
 // Chargement des variables d'environnement 
@@ -15,11 +15,7 @@ dotenv.config();
 
 // On protège le back-end de certaines vulnerabilités en protégeant les en-têtes HTTP via HELMET
 
-app.use(
-    helmet({
-        crossOriginEmbedderPolicy: false,
-    })
-);
+//app.use(helmet());
 
 // Utilisation par app des modules Cors et Express
 
