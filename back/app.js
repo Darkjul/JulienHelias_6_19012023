@@ -40,15 +40,6 @@ mongoose.connect(process.env.DB_CONNECT,
     .then(() => console.log('La connexion à la base de données MongoDB à réussie !'))
     .catch(() => console.log('La connexion à la base de données MongoDB à échouée !'));
 
-// Middleware qui filtre les échanges entre le front et le back et ajoute des headers aux requêtes    
-
-/*app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    next();
-});*/
-
 // On purge les données user pour éviter des injections malveillantes dans la BDD via Mongo Sanitize
 
 app.use(mongoSanitize());
