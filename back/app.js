@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const app = express();
 const cors = require('cors');
-//const helmet = require("helmet");
+const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 
 // Chargement des variables d'environnement 
@@ -15,11 +15,11 @@ dotenv.config();
 
 // On protège le back-end de certaines vulnerabilités en protégeant les en-têtes HTTP via HELMET
 
-//app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
 
 // Utilisation par app des modules Cors et Express
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(express.json());
 
 // Création des constantes d'appel des fichiers user et sauces
@@ -42,12 +42,12 @@ mongoose.connect(process.env.DB_CONNECT,
 
 // Middleware qui filtre les échanges entre le front et le back et ajoute des headers aux requêtes    
 
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
-});
+});*/
 
 // On purge les données user pour éviter des injections malveillantes dans la BDD via Mongo Sanitize
 

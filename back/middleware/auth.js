@@ -1,4 +1,4 @@
-// Jsonwebtoken permet de créer et vérifier les tokens d'authetification
+// Jsonwebtoken permet de créer et vérifier les tokens d'authentification
 
 const jwt = require('jsonwebtoken');
 

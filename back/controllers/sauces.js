@@ -157,7 +157,7 @@ exports.likeSauce = (req, res, next) => {
 
         // On retire un Like ou un Dislike si l'userID est déjà présent dans une des deux listes userLiked ou userDisliked
 
-        else {
+        else if (req.body.like == 0) {
 
             // Si l'userId est présent dans la liste usersLiked
 
@@ -193,5 +193,9 @@ exports.likeSauce = (req, res, next) => {
                     .catch((error) => res.status(400).json({ error }));
             }
         }
-    });
+
+        else {
+            res.status(400).json({ error: "Paramètres requis non valide" });
+        }
+    })
 };
