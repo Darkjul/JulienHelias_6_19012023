@@ -94,6 +94,13 @@ exports.deleteSauce = (req, res, next) => {
 
 exports.modifySauce = (req, res, next) => {
 
+    // On update les infos de la sauce concernée
+
+    const sauceObject = req.file ? {
+        ...JSON.parse(req.body.sauce),
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+    } : { ...req.body };
+
     // Si la modification de la sauce concerne l'image 
 
     if (req.file) {
@@ -106,40 +113,18 @@ exports.modifySauce = (req, res, next) => {
                 // On supprime son image et le lien entre l'ancienne image et la sauce concernée
 
                 const filename = sauce.imageUrl.split("/images/")[1];
-                fs.unlink(`images/${filename}`, () => {
-
-                    // On update les infos de la sauce et sa nouvelle image
-
-                    const sauceObject = {
-                        ...JSON.parse(req.body.sauce),
-                        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
-                    };
-
-                    Sauce.updateOne(
-                        { _id: req.params.id },
-                        { ...sauceObject, _id: req.params.id }
-                    )
-                        .then(() => res.status(200).json({ message: "Votre sauce a bien été modifiée !" }))
-                        .catch(error => res.status(400).json({ error }));
-                });
+                fs.unlinkSync(`images/${filename}`);
             })
             .catch(error => res.status(500).json({ error }));
     }
 
-    // Si la modification de la sauce ne concerne pas l'image
 
-    else {
-
-        // On update les infos de la sauce concernée
-
-        const sauceObject = { ...req.body };
-        Sauce.updateOne(
-            { _id: req.params.id },
-            { ...sauceObject, _id: req.params.id }
-        )
-            .then(() => res.status(200).json({ message: "Votre sauce a bien été modifiée !" }))
-            .catch(error => res.status(400).json({ error }));
-    }
+    Sauce.updateOne(
+        { _id: req.params.id },
+        { ...sauceObject, _id: req.params.id }
+    )
+        .then(() => res.status(200).json({ message: "Votre sauce a bien été modifiée !" }))
+        .catch(error => res.status(400).json({ error }));
 };
 
 // Gestion des avis Like et Dislike des sauces
