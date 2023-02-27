@@ -21,6 +21,10 @@ module.exports = (req, res, next) => {
 
         // Gestion des erreurs possibles d'authentification
 
+        req.auth = { userId };
+
+        // Si L'User ID du corps de la requête est différent du userID --> Renvoi d'une erreur
+
         if (req.body.userId && req.body.userId !== userId) {
             throw 'Identifiant invalide';
         } else {

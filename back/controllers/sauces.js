@@ -75,17 +75,27 @@ exports.deleteSauce = (req, res, next) => {
         _id: req.params.id,
     })
         .then((sauce) => {
-            const filename = sauce.imageUrl.split("/images/")[1];
-            Sauce.deleteOne({
+
+            // Mesure de sécurité qui empêche un utlisiteur autre que le créateur de la sauce de la supprimer (Comparaison userID BDD et userID middleware Auth)
+
+             if (req.auth.userId !== sauce.userId) {
+                res.status(403).json({message: "Supprésion de sauce non autorisée !"})
+            }
+
+            else {
+                const filename = sauce.imageUrl.split("/images/")[1];
+                Sauce.deleteOne({
                 _id: req.params.id,
-            })
+                })
                 .then(() => {
                     fs.unlink(`images/${filename}`, () => {
                         res.status(200).json({ message: "Votre sauce a bien été supprimée !" });
                     });
 
                 })
-                .catch((error) => res.status(400).json({ error }));
+                     .catch((error) => res.status(400).json({ error }));
+             }
+
         })
         .catch((error) => res.status(500).json({ error }));
 };
