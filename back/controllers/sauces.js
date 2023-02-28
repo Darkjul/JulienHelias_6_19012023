@@ -79,7 +79,7 @@ exports.deleteSauce = (req, res, next) => {
             // Mesure de sécurité qui empêche un utlisiteur autre que le créateur de la sauce de la supprimer (Comparaison userID BDD et userID middleware Auth)
 
              if (req.auth.userId !== sauce.userId) {
-                res.status(403).json({message: "Suppréssion de sauce non autorisée !"})
+                res.status(403).json({message: "Suppression de sauce non autorisée !"})
             }
 
             else {
