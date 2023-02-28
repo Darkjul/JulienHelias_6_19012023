@@ -19,15 +19,14 @@ module.exports = (req, res, next) => {
 
         const userId = decodedToken.userId;
 
-        // Gestion des erreurs possibles d'authentification
-
-        req.auth = { userId };
+        // Gestion des erreurs possibles d'authentification        
 
         // Si L'User ID du corps de la requête est différent du userID --> Renvoi d'une erreur
 
         if (req.body.userId && req.body.userId !== userId) {
             throw 'Identifiant invalide';
         } else {
+            req.auth = { userId };
             next();
         }
     } catch {
